@@ -44,4 +44,21 @@ public class PostmanEchoTest {
                 .statusCode(200)
                 .body("data", containsString("test name"));
     }
+
+    //пробуем вернуть GET-запрос (пример с параметрами)
+    @Test
+    void shouldReturnGet() {
+        given()
+                .baseUri("https://postman-echo.com")
+                .param("foo1", "bar1")
+                .param("foo2", "bar2")
+                .when()
+                .get("/get")
+                // .get("/get?foo1=bar1&foo2=bar2") или вот так вместо параметров
+                .then()
+                .statusCode(200)
+                .contentType(ContentType.JSON)
+                .body("args.foo1", equalTo("bar1"))
+                .body("headers.x-forwarded-proto", equalTo("https"));
+    }
 }
