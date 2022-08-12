@@ -61,4 +61,19 @@ public class PostmanEchoTest {
                 .body("args.foo1", equalTo("bar1"))
                 .body("headers.x-forwarded-proto", equalTo("https"));
     }
+
+    //пробуем вернуть POST-запрос на хедер
+    @Test
+    void shouldRequestHeaders() {
+        given()
+                .baseUri("https://postman-echo.com")
+                .contentType("text/plain; charset=UTF-8")
+                .body("тест")
+                .when()
+                .post("/post")
+                .then()
+                .statusCode(200)
+                .header("content-type", "application/json; charset=utf-8")
+                .body("data", equalTo("тест"));
+    }
 }
