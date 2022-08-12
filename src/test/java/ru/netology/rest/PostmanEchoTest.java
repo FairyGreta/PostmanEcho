@@ -24,7 +24,7 @@ public class PostmanEchoTest {
                 // Проверки
                 .then()
                 .statusCode(200)
-                .body("data", equalTo("Тест"));
+                .body("data", equalTo("Test"));
     }
 
     //пробуем вернуть POST-запрос с объектом
