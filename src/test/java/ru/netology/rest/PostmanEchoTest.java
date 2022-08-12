@@ -26,4 +26,22 @@ public class PostmanEchoTest {
                 .statusCode(200)
                 .body("data", equalTo("Test"));
     }
+
+    //пробуем вернуть POST-запрос с объектом
+    @Test
+    void shouldSendRequestPostWithParam() {
+        JSONObject requestBody = new JSONObject()
+                .put("name", "test name")
+                .put("age", 18)
+                .put("hobby", "sport");
+
+        given()
+                .baseUri("https://postman-echo.com")
+                .body(requestBody.toString())
+                .when()
+                .post("/post")
+                .then()
+                .statusCode(200)
+                .body("data", containsString("test name"));
+    }
 }
